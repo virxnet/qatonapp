@@ -1,0 +1,17 @@
+{
+    "name": "virx/qatonapp",
+    "authors": [
+        {
+            "name": "Antony Peiris",
+            "email": "asp@virx.net"
+        }
+    ],
+    "description": "The Elemental PHP MVC System Starter App",
+    "license": "MIT",
+    "require-dev": {
+        "virx/qatoncore": "dev-master"
+    },
+    "require": {
+        "php": "^7.2"
+    }
+}
