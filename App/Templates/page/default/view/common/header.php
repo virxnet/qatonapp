@@ -7,10 +7,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php $this->baseUrl() ?>">Qaton Project</a>
+            <a class="navbar-brand" href="#">Qaton Project</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li class="<?php $this->isActive('/', 'active') ?>"><a href="<?php $this->baseUrl() ?>">Home</a></li>
                 <li class="<?php $this->isActive($this->page_path, 'active') ?>">
                     <a href="<?php $this->pageUrl() ?>"><?php $this->pageName() ?></a>
                 </li>
