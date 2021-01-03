@@ -1,21 +1,13 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Qaton Project</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="<?php $this->isActive('/', 'active') ?>"><a href="<?php $this->baseUrl() ?>">Home</a></li>
-                <li class="<?php $this->isActive($this->page_path, 'active') ?>">
-                    <a href="<?php $this->pageUrl() ?>"><?php $this->pageName() ?></a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="//qaton.virx.net/">Qaton - The Elemental PHP MVC Framework</a> <button aria-controls="navbarsMainDefault" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarsMainDefault" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarsMainDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item <?php $this->isActive('/', 'active') ?>">
+                    <a class="nav-link" href="<?php $this->baseUrl() ?>">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item <?php $this->isActive($this->page_path, 'active') ?>">
+                    <a class="nav-link" href="<?php $this->pageUrl() ?>"><?php $this->pageName() ?> <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
-    </div>
-</nav>
+    </nav>
