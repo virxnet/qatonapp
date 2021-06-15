@@ -4,7 +4,7 @@ Qaton App - Powered by VirX Qaton, the Elemental PHP MVC Framework
 
 ## Installation 
 
-`composer create-project virx/qatonapp:"1.0.2-beta" [ProjectDir] --remove-vcs`
+`composer create-project virx/qatonapp:"dev-master" [ProjectDir] --remove-vcs`
 
 ## Usage
 
