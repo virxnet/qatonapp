@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# VirX Qaton Dev Helper
+# by Antony Shan Peiris
+# v0.1
+
+DEFAULT_CONTAINER_ENGINE=docker
+DEFAULT_HTTP_PORT=8888
+WORKDIR=$(pwd)
+DOCKER_CID=$WORKDIR/.~docker_cid
+
+usage() { 
+    echo
+    echo " *** VirX Qaton by Antony Shan Peiris *** "
+    echo
+    echo "Usage: $0 
+
+    serve|start <http_port>  <...>      Serve application on http://localhost:<http_port>
+                                        and optionally pass other arguments to the engine
+
+    composer                            Execute composer commands within the development system
+
+    bash <arguments>                    Open a bash shell within the development system                    
+
+    <commands>                          Execute qpm commands within the development system
+
+    help|-h|--help                      Prints this usage screen
+
+    " 1>&2; exit 1; 
+}
+
+docker info > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo
+    echo "Fatal Error: Unable to detect Docker!"
+    echo "Download Docker Desktop/Engine from https://docs.docker.com/get-docker"
+    echo
+    exit 1
+fi
+
+if [ "$1" == "serve" ] || [ "$1" == "start" ]; then
+    if [ -z "$2" ]; then 
+        HTTP_PORT=$DEFAULT_HTTP_PORT
+    else
+        HTTP_PORT=$2
+    fi
+    
+    HTTP_PORT_ASSIGNMENT="-p $HTTP_PORT:80"
+    if [ -z "${@:3}" ]; then
+        SERVE_ARGUMENTS=""
+        echo 1
+    else
+        SERVE_ARGUMENTS="${@:3}"
+        echo 2
+    fi
+
+    echo
+    echo " *** Serve Qaton Application *** "
+    echo
+
+    echo "Cleaning Up..."
+    docker stop $(cat $DOCKER_CID)
+    docker rm -v $(cat $DOCKER_CID) > /dev/null 2>&1
+    rm $DOCKER_CID
+    echo
+    echo "Starting..."
+    if docker run $HTTP_PORT_ASSIGNMENT $SERVE_ARGUMENTS -d --cidfile $DOCKER_CID --rm --hostname qaton --name qaton$HTTP_PORT -v $(pwd):/var/www/ virxnet/qaton; then
+        echo
+        echo "Serving: http://localhost:$HTTP_PORT/"
+        echo
+    else 
+        echo
+        echo "Error: failed to serve application!"
+        echo
+    fi
+    $0
+else 
+    if [ "$1" == "composer" ]; then
+        docker exec -it --workdir /var/www $(cat $DOCKER_CID) composer ${@:2}
+    elif [ "$1" == "update" ]; then
+        docker exec -it --workdir /var/www $(cat $DOCKER_CID) composer update
+    elif [ "$1" == "install" ]; then
+        docker exec -it --workdir /var/www $(cat $DOCKER_CID) composer install
+    elif [ "$1" == "bash" ]; then
+        docker exec -it --workdir /var/www $(cat $DOCKER_CID) bash ${@:2}
+    elif [ "$1" == "help" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+        usage
+    else
+        docker exec -it --workdir /var/www $(cat $DOCKER_CID) php qpm
+        docker exec -it --workdir /var/www $(cat $DOCKER_CID) bash -c "export PATH=$PATH:/var/www; bash"
+    fi
+
+    if [ $? -ne 0 ]; then
+        echo
+        echo "Error: operations failed! Did you run './qaton start' first?"
+        echo 
+    fi
+fi
+
+exit 0

@@ -1,5 +1,4 @@
 composer.lock
-docker-serve
 .bash_history
 .bashrc
 .cache/
@@ -9,3 +8,4 @@ docker-serve
 /vendor
 App/Database/FileDatabase/Databases/default_database/activeusers/
 App/Database/FileDatabase/Databases/default_database/users/
+.~docker_cid
