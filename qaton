@@ -59,12 +59,13 @@ if [ "$1" == "serve" ] || [ "$1" == "start" ]; then
     echo
 
     echo "Cleaning Up..."
-    docker stop $(cat $DOCKER_CID)
+    CONTAINER_NAME=qaton$HTTP_PORT
+    docker stop /$CONTAINER_NAME
     docker rm -v $(cat $DOCKER_CID) > /dev/null 2>&1
     rm $DOCKER_CID
     echo
     echo "Starting..."
-    if docker run $HTTP_PORT_ASSIGNMENT $SERVE_ARGUMENTS -d --cidfile $DOCKER_CID --rm --hostname qaton --name qaton$HTTP_PORT -v $(pwd):/var/www/ virxnet/qaton; then
+    if docker run $HTTP_PORT_ASSIGNMENT $SERVE_ARGUMENTS -d --cidfile $DOCKER_CID --rm --hostname qaton --name $CONTAINER_NAME -v $(pwd):/var/www/ virxnet/qaton; then
         echo
         echo "Serving: http://localhost:$HTTP_PORT/"
         echo
