@@ -69,7 +69,7 @@ chmod +x qpm
 #### Begin Development
 
 There are two ways to get started with development quickly. The quickest way is 
-using (Docker Desktop/Engine)[https://docs.docker.com/get-docker]. If you started th e project using composer but still wish to use Docker, you can follow the instructions outlined in Method 1 only skipping the first step (git clone). Otherwise, if your environment has already been setup correctly, then you should be already be able to begin at this point. If you have any issues, consider the following tips for troubleshoting: 
+using [Docker Desktop/Engine](https://docs.docker.com/get-docker). If you started th e project using composer but still wish to use Docker, you can follow the instructions outlined in Method 1 only skipping the first step (git clone). Otherwise, if your environment has already been setup correctly, then you should be already be able to begin at this point. If you have any issues, consider the following tips for troubleshoting: 
 
 - Your web server's document root is correctly pointed to the public directory
 - You have enabled URL rewriting so eveything points to the index.php file
